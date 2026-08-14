@@ -1,6 +1,7 @@
 [tool.pytest.ini_options]
 addopts = "-ra"
 testpaths = ["tests"]
+pythonpath = ["."]
 markers = [
   "smoke: fast release-blocking checks",
   "e2e: end-to-end user journeys",
