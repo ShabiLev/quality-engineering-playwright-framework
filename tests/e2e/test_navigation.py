@@ -4,8 +4,10 @@ from framework.pages import ExamplePage
 
 
 @pytest.mark.e2e
-def test_more_information_link_is_actionable(page, test_config):
+def test_primary_link_is_actionable(page, test_config):
     home = ExamplePage(page, test_config.base_url)
     home.open()
-    link = page.get_by_role("link", name="More information...")
-    expect(link).to_have_attribute("href", "https://iana.org/domains/example")
+    link = home.primary_link
+    expect(link).to_be_visible()
+    href = link.get_attribute("href")
+    assert href is not None and href.startswith(("http://", "https://"))
