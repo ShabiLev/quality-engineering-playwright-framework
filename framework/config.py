@@ -19,7 +19,7 @@ def load_config(path: str | Path = "config/demo.yaml") -> TestConfig:
     app = data.get("app", {})
     viewport = data.get("viewport", {})
     return TestConfig(
-        base_url=os.getenv("QE_BASE_URL", app.get("base_url", "https://example.com")),
+        base_url=os.getenv("QE_BASE_URL", app.get("base_url", "http://127.0.0.1:8000/demo")),
         default_timeout_ms=int(app.get("default_timeout_ms", 10_000)),
         viewport_width=int(viewport.get("width", 1440)),
         viewport_height=int(viewport.get("height", 900)),
