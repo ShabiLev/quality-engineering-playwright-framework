@@ -1,5 +1,5 @@
 app:
-  base_url: https://example.com
+  base_url: http://127.0.0.1:8000/demo
   default_timeout_ms: 10000
 viewport:
   width: 1440

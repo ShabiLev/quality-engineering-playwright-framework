@@ -20,5 +20,17 @@ jobs:
           python -m pip install --upgrade pip
           pip install -r requirements.txt
           playwright install --with-deps chromium
+      - name: Start deterministic demo server
+        run: |
+          python -m http.server 8000 > /tmp/qe-demo-server.log 2>&1 &
+          echo $! > /tmp/qe-demo-server.pid
+          for attempt in {1..20}; do
+            if curl --fail --silent http://127.0.0.1:8000/demo/ > /dev/null; then
+              exit 0
+            fi
+            sleep 0.25
+          done
+          cat /tmp/qe-demo-server.log
+          exit 1
       - name: Run smoke and regression showcase
         run: pytest -m "smoke or e2e or accessibility or ux"
