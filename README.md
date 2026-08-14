@@ -9,12 +9,13 @@ This public showcase is intentionally built with **synthetic targets and demo da
 - Smoke, regression and end-to-end test organization
 - Page Object and reusable component patterns
 - Configuration-driven environments
-- Accessibility checks with axe-core-compatible browser injection hooks
+- Accessibility-focused semantic checks
 - UX checks across multiple viewports
-- Failure evidence: screenshots and traces
-- Structured test metadata and markers
+- Failure evidence helpers for screenshots and traces
+- Structured test metadata and pytest markers
 - GitHub Actions quality gates
-- Portfolio-oriented architecture and test strategy documentation
+- A deterministic local demo target owned by this repository
+- Portfolio-oriented architecture and test-strategy documentation
 
 ## Engineering Principles
 
@@ -24,7 +25,8 @@ This public showcase is intentionally built with **synthetic targets and demo da
 4. Evidence captured on failure.
 5. Clear separation between test intent and UI mechanics.
 6. CI must run the same commands developers run locally.
-7. No claim of quality without executable evidence.
+7. Portfolio tests should not depend on third-party copy or availability.
+8. No claim of quality without executable evidence.
 
 ## Project Structure
 
@@ -42,6 +44,10 @@ tests/
 
 config/
   demo.yaml
+
+demo/
+  index.html
+  details.html
 
 docs/
   ARCHITECTURE.md
@@ -63,12 +69,27 @@ source .venv/bin/activate
 
 pip install -r requirements.txt
 playwright install chromium
+```
+
+Start the deterministic demo server from the repository root:
+
+```bash
+python -m http.server 8000
+```
+
+In a second terminal, run:
+
+```bash
 pytest
 ```
 
-## Demo Target
+The default test target is `http://127.0.0.1:8000/demo`. GitHub Actions starts and health-checks the same local server before running the browser suites.
 
-By default the framework uses `https://example.com`, a public synthetic target. Replace it only with environments you are authorized to test.
+To test another environment that you are authorized to test, override the configured URL without editing framework code:
+
+```bash
+QE_BASE_URL=https://authorized.example pytest
+```
 
 ## Portfolio Context
 
