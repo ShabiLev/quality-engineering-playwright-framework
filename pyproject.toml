@@ -1,0 +1,9 @@
+[tool.pytest.ini_options]
+addopts = "-ra"
+testpaths = ["tests"]
+markers = [
+  "smoke: fast release-blocking checks",
+  "e2e: end-to-end user journeys",
+  "accessibility: accessibility-focused checks",
+  "ux: responsive and usability-oriented checks",
+]

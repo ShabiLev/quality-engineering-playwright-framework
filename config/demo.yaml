@@ -1,0 +1,6 @@
+app:
+  base_url: https://example.com
+  default_timeout_ms: 10000
+viewport:
+  width: 1440
+  height: 900
